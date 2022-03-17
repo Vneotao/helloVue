@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+    1、M: 模型(Model): 对应data中的数据
+    2、V: 视图(View): 模板代码
+    3、VM: 视图模型(ViewModel): Vue实例对象(监听DOM, 绑定数据)
+   -->
+  <div id="root">
+    <h2>Hello, {{msg}}</h2>
+  </div>
+
+  <script type="text/javascript">
+    // el的第一种写法
+    // data第一种写法。data是一个对象。
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        msg: '树先生'
+      }
+    });
+    console.log(vm);
+    setTimeout(() => {
+      vm.msg = 'ZZ'
+    }, 1000);
+
+    // el的第二种写法
+    //  const vm = new Vue({
+    //    el: '#root',
+    //    data: {
+    //      msg: '树先生'
+    //    }
+    //  });
+    //  vm.$mount('#root');
+
+    // data的第二种写法。data是一个函数，返回数据对象
+    new Vue({
+      el: '#root',
+      // 特别注意！！！data不要写成箭头函数，要写成普通函数，否则this的指向就是window，而不是vue的实例对象
+      // 这里简写了，相当于data: function(){}
+      data() {
+        console.log(this);
+        return {
+          msg: '树先生'
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>

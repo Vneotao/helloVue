@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- 
+      1、单向数据绑定: 数据只能从data流向页面
+      2、双向数据绑定: 数据可以从页面流向data, 也可以从data流向页面
+     -->
+    单向数据绑定(v-bind): <input type="text" v-bind:value="msg1"> <br/><br/>
+    双向数据绑定(v-model): <input type="text" v-model:value="msg2">
+    <!-- 
+      v-model:value可以简写为v-model.自动绑定标签中的value
+      双向数据绑定(v-model): <input type="text" v-model="msg2">
+     -->
+  </div>
+  <script>
+    Vue.config.devtools = true;
+    new Vue({
+      el: "#root",
+      data: {
+        msg1: 'zz',
+        msg2: 'tt'
+      }
+    })
+  </script>
+</body>
+</html>
