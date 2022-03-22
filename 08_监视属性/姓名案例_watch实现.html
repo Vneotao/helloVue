@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<!-- 
+  1、所有被vue调用的函数，都不要写成箭头函数
+  2、所有不是被vue调用的函数，都要写成箭头函数
+ -->
+
+<body>
+  <div id="root">
+    姓: <input type="text" v-model="firstName"><br />
+    名: <input type="text" v-model="lastName"><br />
+    <span>全民: {{fullName}}</span><br />
+  </div>
+
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: '#root',
+      data: {
+        firstName: "z",
+        lastName: '珍',
+        fullName: '',
+      },
+      watch: {
+        /**
+         * 1、data中firstName被改变时调用
+         * 2、watch中的this -> vm
+         */
+        // firstName(newVal, oldVal) {
+        //   this.fullName = newVal + this.lastName;
+        // },
+        // 精简写法
+        // lastName(newVal, oldVal) {
+        //   this.fullName = this.firstName + newVal;
+        // },
+        // 完整写法
+        lastName: {
+          // 若immediate为true, 则handler在初始化时就会调用一次，以后就看lastName的改变了
+          immediate: true,
+          handler: function (newVal, oldVal) {
+            this.fullName = this.firstName + newVal;
+          }
+        }
+      }
+    })
+
+    // 写法二: 配置在外面
+    vm.$watch('firstName', {
+      immediate: true,
+      handler: function (newVal, oldVal) {
+        // this.fullName = newVal + this.lastName;
+        setTimeout(() => { // 此处定时器的回调一调要用箭头函数。因为箭头函数没有this，this只能向上找到handler的this, 即VM
+          this.fullName = newVal + this.lastName;
+        }, 1000)
+      }
+    })
+  </script>
+
+</body>
+
+</html>

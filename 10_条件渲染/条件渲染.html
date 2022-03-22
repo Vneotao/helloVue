@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <style>
+    img {
+      width: 100px;
+    }
+  </style>
+</head>
+<!-- 
+  条件渲染
+  v-if
+    适用于: 切换频率很低的场景
+    特点: 不展示DOM节点，直接删除
+  v-show
+    适用于: 切换频率很高的场景
+    特点: 节点未删除, 仅仅是使用样式隐藏掉
+
+  ！！！注意: 使用v-if时, DOM节点可能无法获取到; 而使用v-show一定可以获取到DOM节点
+ -->
+
+<body>
+  <div id="root">
+    <h2>今天天气很{{isHot ? '炎热': '凉爽'}}？？</h2>
+    <button @click="changeWeather">变天了by methods</button>
+    <button @click="isHot = !isHot">变天了</button>
+
+    <!-- 使用v-show实现条件渲染: 节点隐藏 display:none -->
+    <div v-show="isHot">
+      <h1>只有天气炎热才会看到我</h1>
+      <img src="https://s3.ax1x.com/2020/12/13/reC1IA.jpg" alt=""><br />
+      <span>建议: 心静自然凉</span>
+    </div>
+
+    <div v-show="!isHot">
+      <h1>只有天气凉爽才会看到我</h1>
+      <img src="https://s3.ax1x.com/2020/12/13/reCaqg.jpg" alt=""><br />
+      <span>建议: 穿秋裤</span>
+    </div>
+
+    <!-- 使用v-if实现条件渲染: 节点被干掉  -->
+    <div v-if="isHot">
+      <h1>只有天气炎热才会看到我</h1>
+      <img src="https://s3.ax1x.com/2020/12/13/reC1IA.jpg" alt=""><br />
+      <span>建议: 心静自然凉</span>
+    </div>
+
+    <div v-else>
+      <h1>只有天气凉爽才会看到我</h1>
+      <img src="https://s3.ax1x.com/2020/12/13/reCaqg.jpg" alt=""><br />
+      <span>建议: 穿秋裤</span>
+    </div>
+
+
+  </div>
+  <script type="text/javascript">
+    new Vue({
+      el: "#root",
+      data: {
+        isHot: true
+      },
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

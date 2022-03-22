@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h2>{{x}}</h2>
+    <h2>{{y()}}</h2>
+    <h2>{{z}}</h2>
+    <button @click="y">点我调用方法y</button>
+    <button @click="y()">点我调用方法y</button>
+    展示x的值: <input type="text" v-model="x">
+  </div>
+
+  <script type="text/javascript">
+    new Vue({
+      el: '#root',
+      data: {
+        x: 100
+      },
+      methods: {
+        y() {
+          console.log("y 被调用");
+          return 200;
+        }
+      },
+      computed: {
+        z: {
+          set() {
+            console.log("有人修改z了");
+          },
+          get() {
+            console.log("有人调用z了");
+            return 900
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

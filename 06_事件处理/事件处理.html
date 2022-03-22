@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h2>欢迎来到{{city}}打工</h2>
+    <!-- 绑定事件 -- 标准方式 -->
+    <button v-on:click="show1">点我打印信息1(v-on绑定)</button><br /><br />
+    <!-- 绑定事件 -- 简写方式 -->
+    <button @click="show1">点我打印信息1(@绑定)</button><br /><br />
+    <!-- 绑定事件 -- 传递参数 
+      当传参后不会再自动传入event事件
+      $占位符，传的如果是变量如event则会去data中查找这个变量
+    -->
+    <button @click="show2(666)">点我提示信息2 + 传递的参数</button>
+    <button @click="show2(666, $event)">点我提示信息2 + 传递的参数</button>
+    <br /><br />
+    <!-- 绑定事件 —- 组织默认行为 prevent叫事件修饰符 -->
+    <a href="https://www.baidu.com" @click.prevent="show3">点我提示信息3(阻止默认行为)</a>
+    <br /><br />
+
+    <!-- 绑定事件 —- 组织默认行为 stop也叫事件修饰符 -->
+    <div @click="show4">
+      <button @click.stop="show4">点我提示信息4(阻止冒泡)</button>
+      <!-- 事件修饰符可以连续的写 -->
+      <a href="https://www.baidu.com" @click.stop.prevent="show3">点我提示信息3(阻止默认行为)</a>
+    </div>
+    <br/>
+
+    <!-- 键盘事件 -->
+    <!-- 不是所有的按键都支持，记住常用的即可: enter|esc -->
+    <input @keyup.enter="show5" type="text" placeholder="按下回车提示数据">
+
+  </div>
+
+  <script type="text/javascript">
+    new Vue({
+      el: '#root',
+      // data: 配置数据
+      data: {
+        city: '深圳'
+      },
+      // methods: 配置方法
+      methods: {
+        // 一定不要写成箭头函数，否则this就是window了
+        // show1() {
+        //   console.log("我是信息1", this.city);
+        // },
+        show1(event) {
+          // 自动传递event事件，这里打印button标签中的文字。
+          console.log("我是信息1", event.target.innerText);
+        },
+        show2(number) {
+          alert("提示信息2---" + number);
+        },
+        // 接受$event传参，形参名随意
+        // show2(number, event) {
+        //   alert("提示信息2---" + number);
+        //   console.log(event);
+        // }
+        show3(event) {
+          // 靠程序员手动阻止默认行为
+          // event.preventDefault();
+          alert("提示信息3---");
+        },
+        show4() {
+          // 靠程序员手动阻止默认行为
+          // event.preventDefault();
+          // 靠程序员手动阻止冒泡行为
+          event.stopPropagation();
+          alert("提示信息4---");
+        },
+        show5(event){
+          // 靠程序员自己判断按键
+          // if (event.keyCode !== 13) {
+          //   return;
+          // }
+          alert(event.target.value);
+        }
+      }
+    });
+
+  </script>
+</body>
+
+</html>

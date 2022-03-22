@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    姓: <input type="text" v-model="firstName"><br />
+    名: <input type="text" v-model="lastName"><br />
+    <span>全名: {{firstName + lastName}}</span>
+  </div>
+
+  <script type="text/javascript">
+    new Vue({
+      el: '#root',
+      data: {
+        firstName: '周',
+        lastName: 'Z'
+      }
+    })
+  </script>
+</body>
+
+</html>
